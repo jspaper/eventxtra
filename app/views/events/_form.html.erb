@@ -1,41 +1,16 @@
-<%= form_with(model: event, local: true, html: {multipart: true}) do |form| %>
-  <% if event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-      <% event.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :event_name %>
+<%= simple_form_for(event, :html => {:multipart => true}) do |f| %>
+  <%= f.input :name, :input_html => {:style => "width: 200px;"} %>
+  <%= f.input :description, :as => :text, :input_html => {:rows => 5, :style => "width: 300px;"} %>
+  <%= f.input :banner, :as => :file %>
+  
+  <%= content_tag :div, class: "form-group" do -%>
+    <%= image_tag event.banner.url(:medium) %>
+  <% end if event.banner.present? -%>
+  <%= f.input :webview_link, :input_html => {:style => "width: 500px;"} %>
+  
+  <div class="form-group">
+    <%= link_to "Import attendee", new_event_attendee_import_path(event), :class => "btn btn-default" unless event.new_record? %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description, id: :event_description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :banner %>
-    <%= form.file_field :banner, id: :event_banner %>
-  </div>
-
-  <div class="field">
-    <%= form.label :webview_link %>
-    <%= form.text_field :webview_link, id: :event_webview_link %>
-  </div>
-
-  <div class="field">
-    <%= link_to "Import attendee", new_event_attendee_import_path(event) unless event.new_record? %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= f.button :submit, (event.new_record? ? "Next" : "Update"), :class => "btn btn-primary" %>
 <% end %>

@@ -1,13 +1,19 @@
 <header class="navbar bs-docs-nav navbar-default navbar-fixed-top navbar-xtra">
   <div class="container">
     <div class="navbar-header">
-      <img src="/assets/logo.png" style="width: 140px; margin: 5px 0;" />
+      <%= link_to root_path do %>
+        <img src="/assets/logo.png" style="width: 140px; margin: 5px 0;" />
+      <% end %>
     </div>
     
     <nav>
       <ul class="nav masthead-nav">
-        <li><%= link_to "Home", root_path, :class => (current_page?(:controller => "pages", :action => "home") ? "active" : "") %></li>
-        <li><%= link_to "Events", events_path, :class => (current_page?(:controller => "events", :action => "index") ? "active" : "") %></li>
+        <%= content_tag :li, :class => (current_page?(:controller => "pages", :action => "home") ? "active" : "") do %>
+          <%= link_to "Home", root_path %>
+        <% end -%>
+        <%= content_tag :li, :class => (current_page?(:controller => "events", :action => "index") ? "active" : "") do %>
+          <%= link_to "Events", events_path %>
+        <% end -%>
       </ul>
     </nav>
     

@@ -1,35 +1,37 @@
-<p id="notice"><%= notice %></p>
+<%= render "topbar" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
-
-<p>
-  <strong>Banner:</strong>
-  <%= image_tag @event.banner.url(:medium) %>
-</p>
-
-<p>
-  <strong>Webview link:</strong>
-  <%= link_to @event.webview_link unless @event.webview_link.blank? %>
-</p>
-
-<p>
-  <strong>Attendee: (<%= @attendee_count %>)</strong>
-  <%= content_tag :ul, :class => "attendees" do %>
-    <% @attendees.each do |attendee| %>
-    <%= content_tag :li, attendee %>
-    <% end %>
-  <% end %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
   
-  <%= link_to "More", event_attendees_path(@event) %>
-</p>
+  <h1><%= @event.name %></h1>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+  <p>
+    <strong>Description:</strong>
+    <%= @event.description %>
+  </p>
+
+  <p>
+    <strong>Banner:</strong>
+    <%= image_tag @event.banner.url(:medium) %>
+  </p>
+
+  <p>
+    <strong>Webview link:</strong>
+    <%= link_to @event.webview_link unless @event.webview_link.blank? %>
+  </p>
+
+  <p>
+    <strong>Attendee: (<%= @attendee_count %>)</strong>
+    <%= content_tag :ul, :class => "attendees" do %>
+      <% @attendees.each do |attendee| %>
+      <%= content_tag :li, attendee %>
+      <% end %>
+    <% end %>
+  
+    <%= link_to "More", event_attendees_path(@event) %>
+  </p>
+
+  <%= link_to 'Edit', edit_event_path(@event) %> |
+  <%= link_to 'Back', events_path %>
+  
+</div>

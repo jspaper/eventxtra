@@ -22,6 +22,9 @@ class Event < ApplicationRecord
 
   has_many :attendees, :dependent => :destroy
   
+  validates :name, :presence => true, :length => {:minimum => 3, :maxium => 40}
+  validates :description, :presence => true, :length => {:minimum => 3, :maxium => 500}
+  
   def to_s
     name
   end

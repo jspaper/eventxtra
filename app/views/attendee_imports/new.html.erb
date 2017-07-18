@@ -1,34 +1,39 @@
-<h1>Attendee Import</h1>
+<%= render "topbar" %>
 
-<p>A CSV file can be used to import records. The first row should be the column name. The following columns are allowed.</p>
+<div class="container">
+  <h1>Attendee Import</h1>
 
-<ul>
-  <% Attendee.columns.each do |column| %>
-    <% if column.name.in? ["name", "title", "description"] %>
-      <li>
-        <strong><%= column.name %></strong> -
-        <%= column.type.to_s.titleize %> type
-      </li>
-    <% end %>
-  <% end %>
-</ul>
+  <p>A CSV file can be used to import records. The first row should be the column name. The following columns are allowed.</p>
 
-<%= form_for @attendee_import, :url => event_attendee_imports_path(@event), :html => {:multipart => true} do |f| %>
-  <% if @attendee_import.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@attendee_import.errors.count, "error") %> prohibited this import from completing:</h2>
-      <ul>
-      <% @attendee_import.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+  <ul>
+    <% Attendee.columns.each do |column| %>
+      <% if column.name.in? ["name", "title", "description"] %>
+        <li>
+          <strong><%= column.name %></strong> -
+          <%= column.type.to_s.titleize %> type
+        </li>
       <% end %>
-      </ul>
-    </div>
+    <% end %>
+  </ul>
+
+  <%= simple_form_for @attendee_import, :url => event_attendee_imports_path(@event), :html => {:multipart => true} do |f| %>
+    <% if @attendee_import.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@attendee_import.errors.count, "error") %> prohibited this import from completing:</h2>
+        <ul>
+        <% @attendee_import.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.input :file, :as => :file %>
+    
+    <%= f.submit "Import", :class => "btn btn-primary" %>
   <% end %>
 
-  <div class="field">
-    <%= f.file_field :file %>
-  </div>
-  <div class="buttons"><%= f.submit "Import" %></div>
-<% end %>
+  <%= link_to "Back", event_path(@event) %>
+</div>
 
-<%= link_to "Back", event_path(@event) %>
+
