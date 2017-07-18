@@ -4,7 +4,7 @@
 
 <ul>
   <% Attendee.columns.each do |column| %>
-    <% if column.name.in? ["id", "name", "title", "description"] %>
+    <% if column.name.in? ["name", "title", "description"] %>
       <li>
         <strong><%= column.name %></strong> -
         <%= column.type.to_s.titleize %> type
@@ -12,8 +12,6 @@
     <% end %>
   <% end %>
 </ul>
-
-<p>If an <strong>id</strong> is supplied it will update the matching record instead of creating a new one.</p>
 
 <%= form_for @attendee_import, :url => event_attendee_imports_path(@event), :html => {:multipart => true} do |f| %>
   <% if @attendee_import.errors.any? %>
@@ -32,3 +30,5 @@
   </div>
   <div class="buttons"><%= f.submit "Import" %></div>
 <% end %>
+
+<%= link_to "Back", event_path(@event) %>

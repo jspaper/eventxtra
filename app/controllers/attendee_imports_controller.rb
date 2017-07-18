@@ -6,6 +6,7 @@ class AttendeeImportsController < ApplicationController
   end
   
   def create
+    params[:attendee_import][:event_id] = params[:event_id]
     @attendee_import = AttendeeImport.new(params[:attendee_import])
     if @attendee_import.save
       redirect_to events_path, notice: "Imported attendees successfully."

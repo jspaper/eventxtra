@@ -32,7 +32,7 @@
   </div>
 
   <div class="field">
-    <%= link_to "Import attendee", new_event_attendee_import_path(event) %>
+    <%= link_to "Import attendee", new_event_attendee_import_path(event) unless event.new_record? %>
   </div>
 
   <div class="actions">
