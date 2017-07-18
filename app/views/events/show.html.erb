@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @event.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+
+<p>
+  <strong>Banner:</strong>
+  <%= image_tag @event.banner.url(:medium) %>
+</p>
+
+<p>
+  <strong>Webview link:</strong>
+  <%= link_to @event.webview_link unless @event.webview_link.blank? %>
+</p>
+
+<p>
+  <strong>Attendee:</strong>
+  <%= content_tag :ul, :class => "attendees" do %>
+    <% @attendees.each do |attendee| %>
+    <%= content_tag :li, attendee %>
+    <% end %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

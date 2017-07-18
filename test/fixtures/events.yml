@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id                  :integer          not null, primary key
+#  name                :string
+#  description         :string
+#  webview_link        :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  banner_file_name    :string
+#  banner_content_type :string
+#  banner_file_size    :integer
+#  banner_updated_at   :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  banner: 
+  webview_link: MyString
+
+two:
+  name: MyString
+  description: MyString
+  banner: 
+  webview_link: MyString
