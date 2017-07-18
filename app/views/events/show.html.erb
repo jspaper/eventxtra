@@ -21,12 +21,14 @@
 </p>
 
 <p>
-  <strong>Attendee:</strong>
+  <strong>Attendee: (<%= @attendee_count %>)</strong>
   <%= content_tag :ul, :class => "attendees" do %>
     <% @attendees.each do |attendee| %>
     <%= content_tag :li, attendee %>
     <% end %>
   <% end %>
+  
+  <%= link_to "More", event_attendees_path(@event) %>
 </p>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |

@@ -1,0 +1,15 @@
+<header class="navbar bs-docs-nav navbar-default navbar-fixed-top navbar-xtra">
+  <div class="container">
+    <div class="navbar-header">
+      <img src="/assets/logo.png" style="width: 140px; margin: 5px 0;" />
+    </div>
+    
+    <nav>
+      <ul class="nav masthead-nav">
+        <li><%= link_to "Home", root_path, :class => (current_page?(:controller => "pages", :action => "home") ? "active" : "") %></li>
+        <li><%= link_to "Events", events_path, :class => (current_page?(:controller => "events", :action => "index") ? "active" : "") %></li>
+      </ul>
+    </nav>
+    
+  </div>
+</header>

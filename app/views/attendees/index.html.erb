@@ -1,0 +1,14 @@
+<h1>Attendees</h1>
+<i><%= @event %></i>
+
+<ul>
+  <% @attendees.each do |attendee| %>
+  <li>
+    <%= attendee %>
+    <i><%= attendee.title %></i>
+    <%= link_to 'Destroy', event_attendee_path(@event, attendee), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to event", event_path(@event) %>

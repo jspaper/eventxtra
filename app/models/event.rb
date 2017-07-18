@@ -21,4 +21,9 @@ class Event < ApplicationRecord
   validates_attachment_content_type :banner, content_type: /\Aimage\/.*\z/
 
   has_many :attendees, :dependent => :destroy
+  
+  def to_s
+    name
+  end
+  
 end
