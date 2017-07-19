@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
     helper_method :mobile_device?
 
     def mobile_view_path
-      p "xxxx #{request.user_agent} #{mobile_device?}"
       if mobile_device?
         prepend_view_path "app/views/mobile"
       end

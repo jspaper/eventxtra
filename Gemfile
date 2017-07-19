@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.2.7"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -6,7 +7,8 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.1.2'
-gem 'sqlite3'
+gem 'pg'
+gem 'rails_12factor', group: :production
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -39,6 +41,7 @@ gem 'redis-namespace'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'sqlite3'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
