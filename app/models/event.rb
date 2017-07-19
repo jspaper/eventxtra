@@ -28,5 +28,9 @@ class Event < ApplicationRecord
   def to_s
     name
   end
+
+  def import_attendees(file)
+    SkAttendee.import(file.path, id)
+  end
   
 end

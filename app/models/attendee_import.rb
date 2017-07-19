@@ -26,7 +26,7 @@ class AttendeeImport
       false
     end
   end
-  
+
   def imported_attendees
     @imported_attendees ||= load_imported_attendees
   end

@@ -34,6 +34,10 @@ gem 'devise'
 gem "paperclip", "~> 5.0.0"
 gem 'twitter-bootstrap-rails'
 gem 'simple_form'
+gem 'sidekiq'
+gem 'slim'
+gem 'sinatra', :require => nil
+gem 'sidekiq-kawai'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
