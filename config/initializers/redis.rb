@@ -1,7 +1,7 @@
 require 'nest'
 
 $redis = Redis.new(:host => "127.0.0.1", :port => 6379, :logger => Rails.logger) if Rails.env.development?
-$redis = Redis.new(ENV["REDIS_URL"]) if Rails.env.production?
+$redis = Redis.new(:url => ENV["REDIS_URL"]) if Rails.env.production?
 
 ActiveRecord::Base.class_eval do
 
