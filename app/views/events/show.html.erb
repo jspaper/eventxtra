@@ -12,7 +12,7 @@
 
   <p>
     <strong>Banner:</strong>
-    <%= image_tag @event.banner.url(:medium) %>
+    <%= image_tag @event.banner.url(:medium) if @event.banner.present? %>
   </p>
 
   <p>
@@ -32,7 +32,7 @@
       <% end if @attendees.size < @attendee_count %>
     <% end %>
   
-    <div id="progress_message"><%= @progress_message %></div>
+    <p class="bg-info" id="progress_message" style="line-height: 3em; padding: 0 1em;"><%= @progress_message %></p>
     
     <%= link_to "Import attendee", new_event_attendee_import_path(@event), :class => "btn btn-default" %>
   </p>

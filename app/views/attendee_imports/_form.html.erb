@@ -13,6 +13,14 @@
   <% end %>
 </ul>
 
+<strong>CSV Example</strong>
+
+<pre>
+name,title,description
+josh,Technical Director,N/A
+jeremy,CEO,Yahoo
+</pre>
+
 <%= simple_form_for attendee_import, :url => event_attendee_imports_path(event), :html => {:multipart => true} do |f| %>
   <%= f.input :file, :as => :file %>
   
