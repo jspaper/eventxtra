@@ -1,0 +1,9 @@
+<header class="bar bar-nav">
+  <h1 class="title">EventXtra</h1>
+</header>
+
+<div class="container">
+  <p style="margin-top: 200px;"><%= @event %></p>
+</div>
+
+<%= render :partial => "events/footer", :locals => {:event => @event} %>

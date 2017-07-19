@@ -1,0 +1,30 @@
+<header class="bar bar-nav">
+  <h1 class="title">EventXtra</h1>
+  
+  <button class="btn btn-link btn-nav pull-left">
+    <%= link_to root_path do %>
+    <span class="icon icon-left-nav"></span>
+    <% end %>
+  </button>
+</header>
+
+<div class="content">
+
+  <ul class="table-view">
+    <li class="table-view-cell table-view-divider">Events (<%= @events.size %>)</li>
+
+    <% @events.each do |event| %>
+    <li class="table-view-cell media">
+      <%= link_to event_attendees_path(event), :class => "navigate-right", :data => {:transition => "slide-in"} do %>
+        <img class="media-object pull-left" src="http://placehold.it/64x64">
+        <div class="media-body">
+          <%= event %>
+          <p><%= event.description %></p>
+          <span class="badge"><%= event.attendees.size %></span>
+        </div>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+  
+</div>

@@ -1,0 +1,33 @@
+<h1><%= event.name %></h1>
+
+<p>
+  <strong>Description:</strong>
+  <%= event.description %>
+</p>
+
+<p>
+  <strong>Banner:</strong>
+  <%= image_tag event.banner.url(:medium) if event.banner.present? %>
+</p>
+
+<p>
+  <strong>Webview link:</strong>
+  <%= link_to event.webview_link, event.webview_link, :target => "_blank" unless event.webview_link.blank? %>
+</p>
+
+<p>
+  <strong>Attendee: (<%= attendee_count %>)</strong>
+  <%= content_tag :ul, :class => "attendees" do %>
+    <% attendees.each do |attendee| %>
+    <%= content_tag :li, attendee %>
+    <% end %>
+    
+    <%= content_tag :li do %>
+      <%= link_to "More", event_attendees_path(event) %>
+    <% end if attendees.size < attendee_count %>
+  <% end %>
+
+  <p class="bg-info" id="progress_message" style="line-height: 3em; padding: 0 1em;"><%= progress_message %></p>
+  
+  <%= link_to "Import attendee", new_event_attendee_import_path(event), :class => "btn btn-default" %>
+</p>

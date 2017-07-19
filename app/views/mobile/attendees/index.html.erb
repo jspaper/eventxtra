@@ -1,0 +1,31 @@
+<header class="bar bar-nav">
+  <h1 class="title">EventXtra</h1>
+  
+  <button class="btn btn-link btn-nav pull-left">
+    <%= link_to events_path do %>
+    <span class="icon icon-left-nav"></span>
+    <% end %>
+  </button>
+</header>
+
+<div class="content">
+  
+  <ul class="table-view">
+    <% @attendees.each do |attendee| %>
+    <li class="table-view-cell media">
+      <a class="navigate-right">
+        <%= image_tag "/assets/attendee_missing.png", :class => "media-object pull-left", :style => "width: 50px; height: 50px;" %>
+        
+        <div class="media-body">
+          <%= attendee %>
+          <p><%= attendee.title %></p>
+        </div>
+      </a>
+    </li>
+    <% end %>
+    
+  </ul>
+  
+</div>
+
+<%= render :partial => "events/footer", :locals => {:event => @event} %>

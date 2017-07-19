@@ -23,6 +23,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem "paperclip", "~> 5.0.0"
 gem 'twitter-bootstrap-rails'
+gem 'ratchet-sass'
 gem 'simple_form'
 
 gem 'sidekiq'

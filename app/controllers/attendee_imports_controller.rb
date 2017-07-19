@@ -7,8 +7,12 @@ class AttendeeImportsController < ApplicationController
   
   def create
     @event = Event.find(params[:event_id])
-    @event.import_attendees(params[:attendee_import][:file])
-    redirect_to event_path(@event)
+    if params[:attendee_import].nil?
+      redirect_to new_event_attendee_import_path(@event), :notice => "Please select csv file."
+    else
+      @event.import_attendees(params[:attendee_import][:file])
+      redirect_to event_path(@event)
+    end
   end
 
 end

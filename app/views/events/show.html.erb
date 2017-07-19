@@ -3,39 +3,9 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
   
-  <h1 id="event_id" data-id="<%= @event.id %>"><%= @event.name %></h1>
-  
-  <p>
-    <strong>Description:</strong>
-    <%= @event.description %>
-  </p>
-
-  <p>
-    <strong>Banner:</strong>
-    <%= image_tag @event.banner.url(:medium) if @event.banner.present? %>
-  </p>
-
-  <p>
-    <strong>Webview link:</strong>
-    <%= link_to @event.webview_link unless @event.webview_link.blank? %>
-  </p>
-
-  <p>
-    <strong>Attendee: (<%= @attendee_count %>)</strong>
-    <%= content_tag :ul, :class => "attendees" do %>
-      <% @attendees.each do |attendee| %>
-      <%= content_tag :li, attendee %>
-      <% end %>
-      
-      <%= content_tag :li do %>
-        <%= link_to "More", event_attendees_path(@event) %>
-      <% end if @attendees.size < @attendee_count %>
-    <% end %>
-  
-    <p class="bg-info" id="progress_message" style="line-height: 3em; padding: 0 1em;"><%= @progress_message %></p>
-    
-    <%= link_to "Import attendee", new_event_attendee_import_path(@event), :class => "btn btn-default" %>
-  </p>
+  <div id="event_container" data-id="<%= @event.id %>" data-path-get="<%= event_path(@event) %>">
+    <%= render :partial => "events/event", :locals => {:event => @event, :attendee_count => @attendee_count, :attendees => @attendees, :progress_message => @progress_message} %>
+  </div>
 
   <%= link_to 'Edit', edit_event_path(@event) %> |
   <%= link_to 'Back', events_path %>
@@ -47,13 +17,12 @@
     
     return {
       id: null,
+      show_path: null,
       init: function () {
-        this.id = $('#event_id').data('id');
-        this.poll();
-        if ($('#progress_message').length > 0 && $('#progress_message').html().length > 0){
-          
-        }
+        this.id = $('#event_container').data('id');
+        this.show_path = $('#event_container').data('path-get');
         
+        this.poll();
       },
       poll: function () {
         if ($('#progress_message').length > 0 && $('#progress_message').html().length > 0){
@@ -67,8 +36,8 @@
               dataType: "json",
               complete: function(){
                 if ($('#progress_message').length > 0 && $('#progress_message').html().length === 0){
-                  //$.getScript(imports.index_path); // 最新已取得的清單
-                  //$('.parts').unblock();
+                  // $.getJSON('/uploads?tb_name=album&tb_pk='+$('#album_id').val()+'&order='+$(this).data('sortby')+'&callback=?');
+                  $.getScript(events.show_path); // 最新已取得的清單
                 }else{
                   events.poll();
                 }

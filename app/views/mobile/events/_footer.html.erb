@@ -1,0 +1,18 @@
+<nav class="bar bar-tab">
+  <a class="tab-item" href="#">
+    <span class="icon icon-home"></span>
+    <span class="tab-label">Home</span>
+  </a>
+  <a class="tab-item" href="#">
+    <span class="icon icon-star-filled"></span>
+    <span class="tab-label">Agenda</span>
+  </a>
+  <%= link_to event_attendees_path(event), :class => "tab-item active" do %>
+    <span class="icon icon-person"></span>
+    <span class="tab-label">Attendees</span>
+  <% end %>
+  <a class="tab-item" href="#">
+    <span class="icon icon-gear"></span>
+    <span class="tab-label">Speaker</span>
+  </a>
+</nav>
