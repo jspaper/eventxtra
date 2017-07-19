@@ -30,7 +30,18 @@ class Event < ApplicationRecord
   end
 
   def import_attendees(file)
-    SkAttendee.import(file.path, id)
+    count = CSV.read(file.path).size - 1
+    logger.debug "Importing #{count} attendee from CSV"
+    
+    # Set progress in redis
+    $redis.hset import_key, "msg", "Importing #{count} attendee"
+    
+    # Put job into the sidekiq
+    SkAttendee.import(file.path, id, count)
+  end
+  
+  def import_key
+    "Event:#{id}:import_attendee:progress"
   end
   
 end

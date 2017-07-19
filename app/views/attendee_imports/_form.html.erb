@@ -1,0 +1,20 @@
+<h1>Attendee Import</h1>
+
+<p>A CSV file can be used to import records. The first row should be the column name. The following columns are allowed.</p>
+
+<ul>
+  <% Attendee.columns.each do |column| %>
+    <% if column.name.in? ["name", "title", "description"] %>
+      <li>
+        <strong><%= column.name %></strong> -
+        <%= column.type.to_s.titleize %> type
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= simple_form_for attendee_import, :url => event_attendee_imports_path(event), :html => {:multipart => true} do |f| %>
+  <%= f.input :file, :as => :file %>
+  
+  <%= f.submit "Import", :class => "btn btn-primary" %>
+<% end %>

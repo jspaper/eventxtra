@@ -8,7 +8,7 @@ class AttendeeImportsController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @event.import_attendees(params[:attendee_import][:file])
-    redirect_to events_path, notice: "Importing attendees..."
+    redirect_to event_path(@event)
   end
 
 end

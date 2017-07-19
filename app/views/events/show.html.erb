@@ -3,8 +3,8 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
   
-  <h1><%= @event.name %></h1>
-
+  <h1 id="event_id" data-id="<%= @event.id %>"><%= @event.name %></h1>
+  
   <p>
     <strong>Description:</strong>
     <%= @event.description %>
@@ -26,13 +26,62 @@
       <% @attendees.each do |attendee| %>
       <%= content_tag :li, attendee %>
       <% end %>
+      
+      <%= content_tag :li do %>
+        <%= link_to "More", event_attendees_path(@event) %>
+      <% end if @attendees.size < @attendee_count %>
     <% end %>
   
-    <%= link_to "Import attendee", new_event_attendee_import_path(@event) %> |
-    <%= link_to "More", event_attendees_path(@event) %>
+    <div id="progress_message"><%= @progress_message %></div>
+    
+    <%= link_to "Import attendee", new_event_attendee_import_path(@event), :class => "btn btn-default" %>
   </p>
 
   <%= link_to 'Edit', edit_event_path(@event) %> |
   <%= link_to 'Back', events_path %>
   
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  var events = function () {
+    
+    return {
+      id: null,
+      init: function () {
+        this.id = $('#event_id').data('id');
+        this.poll();
+        if ($('#progress_message').length > 0 && $('#progress_message').html().length > 0){
+          
+        }
+        
+      },
+      poll: function () {
+        if ($('#progress_message').length > 0 && $('#progress_message').html().length > 0){
+          setTimeout(function(){
+            $.ajax({
+              url: "/progress?type=event&id=" + events.id,
+              type: "GET",
+              success: function(json) {
+                $('#progress_message').html(json.msg);
+              },
+              dataType: "json",
+              complete: function(){
+                if ($('#progress_message').length > 0 && $('#progress_message').html().length === 0){
+                  //$.getScript(imports.index_path); // 最新已取得的清單
+                  //$('.parts').unblock();
+                }else{
+                  events.poll();
+                }
+
+              },
+              timeout: 3000
+            })
+          }, 1000);
+        }
+      }
+    };
+    
+  }();
+  
+  events.init();
+</script>

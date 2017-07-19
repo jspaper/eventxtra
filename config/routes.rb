@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :attendees
   end
   
+  get "/progress", :to => "pages#progress"
+  
   devise_for :users
   
   mount Sidekiq::Web => '/sidekiq'

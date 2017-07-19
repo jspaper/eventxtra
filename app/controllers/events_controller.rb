@@ -8,6 +8,7 @@ class EventsController < ApplicationController
   def show
     @attendees = @event.attendees.limit(10)
     @attendee_count = @event.attendees.size
+    @progress_message = $redis.hget "Event:#{@event.id}:import_attendee:progress", "msg"
   end
 
   def new

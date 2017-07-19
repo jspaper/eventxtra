@@ -1,37 +1,8 @@
 <%= render "topbar" %>
 
 <div class="container">
-  <h1>Attendee Import</h1>
-
-  <p>A CSV file can be used to import records. The first row should be the column name. The following columns are allowed.</p>
-
-  <ul>
-    <% Attendee.columns.each do |column| %>
-      <% if column.name.in? ["name", "title", "description"] %>
-        <li>
-          <strong><%= column.name %></strong> -
-          <%= column.type.to_s.titleize %> type
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
-
-  <%= simple_form_for @attendee_import, :url => event_attendee_imports_path(@event), :html => {:multipart => true} do |f| %>
-    <% if @attendee_import.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@attendee_import.errors.count, "error") %> prohibited this import from completing:</h2>
-        <ul>
-        <% @attendee_import.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <%= f.input :file, :as => :file %>
-    
-    <%= f.submit "Import", :class => "btn btn-primary" %>
-  <% end %>
+  
+  <%= render :partial => "attendee_imports/form", :locals => {:attendee_import => @attendee_import, :event => @event, :attendee_count => @attendee_count} %>
 
   <%= link_to "Back", event_path(@event) %>
 </div>
