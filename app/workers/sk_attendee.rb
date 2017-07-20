@@ -1,23 +1,20 @@
 class SkAttendee < SkQueue
   sidekiq_options :logger_path => "#{Rails.root}/log/attendee.log"
   
-  def import(file_path, event_id, count)
-    index = 0
-    event = Event.find(event_id)
-    CSV.foreach(file_path, headers: true) do |row|
-      sleep 3
-      index = index + 1
-      attendee = Attendee.new
-      attendee.attributes = row.to_hash.slice("name", "title", "description")
-      attendee.event_id = event_id
-      attendee.save!
-      
-      logger.info "Importing attendees (#{index}/#{count}) of event(#{event_id})"
-      $redis.hset event.import_key, "msg", "Importing attendees(#{index}/#{count})."
-    end
+  def import(attendee_params, count)
+    attendee_params.symbolize_keys!
+    
+    sleep 3 # Slow I/O simulation
+    
+    event = Event.find(attendee_params[:event_id])
+    event.attendees.create attendee_params
+    
+    finished_count = $redis.hincrby event.import_key, "finished_count", 1
+    $redis.hset event.import_key, "msg", "Importing attendees(#{finished_count}/#{count})."
+    logger.info "Importing attendees (#{finished_count}/#{count}) of event(##{event.id})"
     
     # Delete redis data on finish importing
-    $redis.del event.import_key
+    $redis.del event.import_key if finished_count >= count
   end
   
 end

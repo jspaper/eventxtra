@@ -34,10 +34,11 @@ class Event < ApplicationRecord
     logger.debug "Importing #{count} attendee from CSV"
     
     # Set progress in redis
-    $redis.hset import_key, "msg", "Importing #{count} attendee"
-    
-    # Put job into the sidekiq
-    SkAttendee.import(file.path, id, count)
+    $redis.hmset import_key, "msg", "Importing #{count} attendee", "count", count, "finished_count", 0
+
+    CSV.foreach(file.path, headers: true) do |row|
+      SkAttendee.import(row.to_hash.slice("name", "title", "description").merge({"event_id": id}).symbolize_keys!, count)
+    end
   end
   
   def import_key
