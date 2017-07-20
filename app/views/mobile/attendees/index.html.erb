@@ -14,7 +14,7 @@
     <% @attendees.each do |attendee| %>
     <li class="table-view-cell media">
       <a class="navigate-right">
-        <%= image_tag "/assets/attendee_missing.png", :class => "media-object pull-left", :style => "width: 50px; height: 50px;" %>
+        <%= image_tag image_url("attendee_missing.png"), :class => "media-object pull-left", :style => "width: 50px; height: 50px;" %>
         
         <div class="media-body">
           <%= attendee %>
